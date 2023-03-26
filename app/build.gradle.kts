@@ -6,22 +6,50 @@
 
 plugins {
     id("springtest.java-application-conventions")
-    id("org.springframework.boot") version "2.5.4"
+    java
+    `java-library`
 }
+
+buildscript {
+    repositories {
+        maven {
+            url = uri("https://plugins.gradle.org/m2/")
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:3.0.5")
+    }
+}
+
+apply(plugin = "org.springframework.boot")
+apply(plugin = "io.spring.dependency-management")
 
 dependencies {
     implementation("org.apache.commons:commons-text:1.10.0")
-    implementation("org.springframework.boot:spring-boot-starter-web:3.0.5")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.5")
-    implementation("org.springframework.boot:spring-boot-autoconfigure:3.0.5")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-autoconfigure")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-graphql")
+
+    compileOnly("org.projectlombok:lombok:1.18.26")
+    implementation("com.h2database:h2:2.1.214")
+
     implementation(project(":utilities"))
 }
 repositories {
-    mavenCentral()
+    maven("https://repo1.maven.org/maven2/")
+    maven ( "https://plugins.gradle.org/m2/" )
+    maven ( "https://repo.spring.io/plugins-release")
+    maven ("https://repo.spring.io/milestone") // Spring milestones
+    maven ("https://repo.spring.io/snapshot")  // Spring snapshots
     mavenLocal()
+    mavenCentral()
+    jcenter()
 }
 
 application {
     // Define the main class for the application.
-    mainClass.set("springtest.app.App")
+    mainClass.set("graphql.app.GQLApplication")
 }
+
