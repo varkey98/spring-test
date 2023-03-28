@@ -9,7 +9,7 @@ spring:
       enabled: true
       path: /graphiql
   datasource:
-    url: jdbc:h2:mem:testdb;TRACE_LEVEL_FILE=3
+    url: jdbc:h2:mem:bootapp;DB_CLOSE_DELAY=-1
     username: sa
     password: ''
     driverClassName: org.h2.Driver
